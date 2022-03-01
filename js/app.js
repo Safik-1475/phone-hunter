@@ -9,7 +9,6 @@ const cellPhones = () => {
     // console.log(searchText)
 
     // fetch 
-
     const url = (`https://openapi.programming-hero.com/api/phones?search=${searchText}`)
     fetch(url)
         .then(cellResponse => cellResponse.json())
@@ -20,12 +19,10 @@ const phonesData = phones => {
     // console.log(phones)
     // get card container
     const cardContainer = document.getElementById('card-container')
-    // console.log(cardContainer)
     phones.forEach(phone => {
         console.log(phone)
         // create div
         const div = document.createElement('div')
-        // console.log(div)
         div.classList.add('col')
         div.innerHTML = `
         <div class="card h-100 p-2 text-center">
