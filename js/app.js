@@ -9,7 +9,7 @@ const cellPhones = () => {
     // console.log(searchText)
 
     // fetch 
-    const url = (`https://openapi.programming-hero.com/api/phones?search=${searchText}`)
+    const url = (`https://openapi.programming-hero.com/api/phones?search=${searchText.toLowerCase()}`)
     fetch(url)
         .then(cellResponse => cellResponse.json())
         .then(cellResponseData => phonesData(cellResponseData.data))
@@ -19,8 +19,9 @@ const phonesData = phones => {
     // console.log(phones)
     // get card container
     const cardContainer = document.getElementById('card-container')
+    cardContainer.textContent = '';
     phones.forEach(phone => {
-        console.log(phone)
+        // console.log(phone)
         // create div
         const div = document.createElement('div')
         div.classList.add('col')
@@ -31,10 +32,44 @@ const phonesData = phones => {
                 <h5 class="card-title">${phone.brand}</h5>
                 <h5 class="card-title">${phone.phone_name}</h5>     
             </div>
-            <button class="btn btn-sm w-50 mx-auto btn btn-outline-info text-capitalize">buy now</button>
+            <button onclick='phoneDetails("${phone.slug}")' class="btn btn-sm w-50 mx-auto btn btn-outline-info text-capitalize">buy now</button>
         </div>
         `;
         cardContainer.appendChild(div)
     });
 }
 
+// products details 
+
+const phoneDetails = phoneData => {
+    const slugUrl = (`https://openapi.programming-hero.com/api/phone/${phoneData}`);
+    fetch(slugUrl)
+        .then(slugUrlRes => slugUrlRes.json())
+        .then(slugUrlResData => phoneDetailsDisplay(slugUrlResData.data))
+};
+
+const phoneDetailsDisplay = phone => {
+    console.log(phone)
+    const slugContainer = document.getElementById('slug-container');
+    slugContainer.textContent = '';
+    // console.log(slugContainer)
+    // create div
+    const div = document.createElement('div');
+    div.classList.add('col')
+    div.innerHTML = `
+        <div class="card h-100 p-2 text-center">
+            <img src="${phone.image}" class="card-img-top d-block mx-auto img-fluid w-50" alt="image">
+            <div class="card-body">
+                <h5 class="card-title">${phone.name}</h5>   
+                <h5 class="card-title">${phone.releaseDate}</h5>
+                <ul class="list-group">
+                    <li class="list-group-item border-0 p-0 ">${'Chip Set : ' + phone.mainFeatures.chipSet}</li>
+                    <li class="list-group-item border-0 p-0 ">${'Display Size : ' + phone.mainFeatures.displaySize}</li>
+                    <li class="list-group-item border-0 p-0 ">${'Memory : ' + phone.mainFeatures.memory}</li>
+                </ul>
+            </div>
+        </div>
+    `;
+    slugContainer.appendChild(div)
+
+}
