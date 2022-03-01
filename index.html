@@ -20,27 +20,14 @@
     <main class="py-5">
         <!-- start container -->
         <div class="container">
+            <h1 class="text-center text-muted">Cell <span class="text-info">Fashion</span>Shop</h1>
             <!-- input field -->
-            <div class="input-group my-3 w-75 mx-auto">
+            <div class="input-group my-4 w-50 mx-auto">
                 <input id="search-field" type="text" class="form-control" placeholder="What are you looking for?">
-                <button id="search-btn" class="btn border btn-outline">Search</button>
+                <button class="btn border btn btn-outline-info" onclick="cellPhones()">Search</button>
             </div>
 
-            <div class="row row-cols-1 row-cols-lg-3 row-cols-sm-12 g-4">
-                <!-- card start -->
-                <!-- <div class="col">
-                    <div class="card h-100 p-2">
-                        <img src="..." class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
-                                additional content. This card has even longer content than the first to show that equal
-                                height action.</p>
-                        </div>
-                        <button class="btn btn-sm w-50 mx-auto btn-secondary text-capitalize">show details</button>
-                    </div>
-                </div> -->
-                <!-- card end -->
+            <div class="row row-cols-1 row-cols-sm-12 row-cols-md-3 g-4" id="card-container">
             </div>
         </div>
         <!-- end container -->
