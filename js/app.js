@@ -1,34 +1,23 @@
 // search field 
-
 const cellPhones = () => {
-    // console.log('Search button is clicked')
     const searchField = document.getElementById('search-field')
     // console.log(searchField)
-    const searchText = searchField.value;
+    let searchText = searchField.value.toLowerCase();
     searchField.value = "";
     // console.log(searchText)
-
     // fetch 
-    const url = (`https://openapi.programming-hero.com/api/phones?search=${searchText.toLowerCase()}`)
+    const url = (`https://openapi.programming-hero.com/api/phones?search=${searchText}`)
     fetch(url)
         .then(cellResponse => cellResponse.json())
         .then(cellResponseData => phonesData(cellResponseData.data))
-
-    // erroe handle
-    // if (phoneDetails.length < searchText.length) {
-    //     console.log(true)
-    // } else {
-    //     const searchField = document.getElementById('search-field')
-    //     const h3 = document.createElement('h3')
-    //     h3.innerText = 'No Phone Found';
-    //     h3.style.color = "red"
-    //     h3.style.textAlign = "center"
-    //     searchField.appendChild(h3)
-    // }
 };
+
+
+
 
 const phonesData = phones => {
     // console.log(phones)
+
     // get card container
     const cardContainer = document.getElementById('card-container')
     cardContainer.textContent = '';
@@ -41,18 +30,19 @@ const phonesData = phones => {
         <div class="card h-100 p-2 text-center">
             <img src="${phone.image}" class="card-img-top mx-auto d-block img-fluid w-75" alt="image">
             <div class="card-body">
-                <h5 class="card-title">${phone.brand}</h5>
-                <h5 class="card-title">${phone.phone_name}</h5>     
+                <h5 class="card-title">${phone.phone_name}</h5>
+                <h5 class="card-title">${phone.brand}</h5>     
             </div>
             <button onclick='phoneDetails("${phone.slug}")' class="btn btn-sm w-50 mx-auto btn btn-outline-info text-capitalize">explore</button>
         </div>
         `;
         cardContainer.appendChild(div)
-    });
+
+    })
+
 }
 
 // products details 
-
 const phoneDetails = phoneData => {
     const slugUrl = (`https://openapi.programming-hero.com/api/phone/${phoneData}`);
     fetch(slugUrl)
@@ -74,6 +64,7 @@ const phoneDetailsDisplay = phone => {
             <div class="card-body px-5">
                 <h5 class="card-title">${phone.name}</h5>   
                 <h5 id="release-date" class="card-title">${phone.releaseDate}</h5>
+                <br>
                 <ul class="list-group">
                     <li class="list-group-item border-0 p-0 "><b> Chip Set : </b>${phone.mainFeatures.chipSet}</li>
                     <li class="list-group-item border-0 p-0 "><b> Display Size : </b>${phone.mainFeatures.displaySize}</li>
